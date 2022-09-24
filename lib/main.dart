@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'detailsPage.dart';
 import 'models/model.dart';
 
 void main() {
@@ -86,7 +87,10 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.only(left: 16.0, top: 28),
               child: Text(
                 "Popular Destinations",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.grey[600]),
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[600]),
               ),
             ),
             GridView.builder(
@@ -97,20 +101,29 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 itemCount: dataList.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Card(
-                      color: Colors.red.shade800,
-                      child: Column(
-                        children: [
-                          Image.network(dataList[index].cityImage.toString()),
-                          SizedBox(height: 20,),
-                          Center(
-                              child: Text(
-                            dataList[index].cityName.toString(),
-                            style: TextStyle(color: Colors.white, fontSize: 18),
-                          )),
-                        ],
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => DetailPage(city: dataList[index])));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Card(
+                        color: Colors.red.shade800,
+                        child: Column(
+                          children: [
+                            Image.network(dataList[index].cityImage.toString()),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Center(
+                                child: Text(
+                              dataList[index].cityName.toString(),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18),
+                            )),
+                          ],
+                        ),
                       ),
                     ),
                   );
